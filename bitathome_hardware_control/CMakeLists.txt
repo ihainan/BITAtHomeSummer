@@ -8,6 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -31,12 +32,12 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add a build_depend and a run_depend tag for each package in MSG_DEP_SET
 ##   * If MSG_DEP_SET isn't empty the following dependencies might have been
 ##     pulled in transitively but can be declared for certainty nonetheless:
-##     * add a build_depend tag for "message_generation"
-##     * add a run_depend tag for "message_runtime"
+##     * add a build_depend tag for message_generation"
+##     * add a run_depend tag for message_runtime"
 ## * In this file (CMakeLists.txt):
-##   * add "message_generation" and every package in MSG_DEP_SET to
+##   * add message_generation" and every package in MSG_DEP_SET to
 ##     find_package(catkin REQUIRED COMPONENTS ...)
-##   * add "message_runtime" and every package in MSG_DEP_SET to
+##   * add message_runtime" and every package in MSG_DEP_SET to
 ##     catkin_package(CATKIN_DEPENDS ...)
 ##   * uncomment the add_*_files sections below as needed
 ##     and list every .msg/.srv/.action file to be processed
@@ -44,18 +45,21 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
+add_message_files(
+   FILES
+   CodeDisk.msg
 #   Message1.msg
 #   Message2.msg
-# )
+)
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
+add_service_files(
+   FILES
+   MotorSpeed.srv
+   VectorSpeed.srv
 #   Service1.srv
 #   Service2.srv
-# )
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -65,10 +69,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs
-# )
+generate_messages(
+	DEPENDENCIES
+	std_msgs
+)
 
 ###################################
 ## catkin specific configuration ##
@@ -138,8 +142,8 @@ include_directories(
 ## Mark cpp header files for installation
 # install(DIRECTORY include/${PROJECT_NAME}/
 #   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-#   FILES_MATCHING PATTERN "*.h"
-#   PATTERN ".svn" EXCLUDE
+#   FILES_MATCHING PATTERN *.h"
+#   PATTERN .svn" EXCLUDE
 # )
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
