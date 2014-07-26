@@ -119,7 +119,7 @@ def distinguish(pub):
                         if solve_sum(buf) is not s_sum:
                             return False
 
-                        data = Code_disk
+                        data = CodeDisk()
                         data.data1 = combination_hhll([buf[7], buf[8], buf[9], buf[10]])
                         data.data2 = combination_hhll([buf[13], buf[14], buf[15], buf[16]])
                         data.data3 = combination_hhll([buf[19], buf[20], buf[21], buf[22]])

@@ -58,9 +58,9 @@ def handle_codedisk_data(codedisk_data):
 	global pre_codedisk_position_of_M1, pre_codedisk_position_of_M2, pre_codedisk_position_of_M3
 
 # 获取数据
-	codedisk_position_of_M1 = codedisk_data.m1
-	codedisk_position_of_M2 = codedisk_data.m2
-	codedisk_position_of_M3 = codedisk_data.m3
+	codedisk_position_of_M1 = codedisk_data.data1
+	codedisk_position_of_M2 = codedisk_data.data2
+	codedisk_position_of_M3 = codedisk_data.data3
 	current_time = rospy.get_time()
 #print last_time
 #print current_time
