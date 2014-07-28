@@ -15,6 +15,7 @@
 - hc_odom_control.py: 用于计算里程数据
     - 订阅主题
         - code_disk_data:用于获取码盘数据
+- hc_keyboard_control: 用于键盘控制机器运动
 
 ## 启动文件
 - vision.launch : 这个启动文件用于启动openni,用来获取kinect的RGBD数据。
