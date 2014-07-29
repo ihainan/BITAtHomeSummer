@@ -2,4 +2,4 @@ int16 v1
 int16 v2
 int16 v3
 ---
-int8 resout
+int8 result
