@@ -1,5 +1,5 @@
-int16 v1
-int16 v2
-int16 v3
+int16 x
+int16 y
+int16 theta
 ---
 int8 resout
