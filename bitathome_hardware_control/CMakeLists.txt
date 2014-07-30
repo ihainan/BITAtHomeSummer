@@ -5,6 +5,11 @@ project(bitathome_hardware_control)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  cv_bridge
+  image_transport
+  image_geometry
+  image_view
+  tf
   roscpp
   rospy
   std_msgs
@@ -107,16 +112,16 @@ include_directories(
 # )
 
 ## Declare a cpp executable
-# add_executable(bitathome_hardware_control_node src/bitathome_hardware_control_node.cpp)
+add_executable(KinectVision src/KinectVision.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(bitathome_hardware_control_node bitathome_hardware_control_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(bitathome_hardware_control_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(KinectVision
+  ${catkin_LIBRARIES}
+)
 
 #############
 ## Install ##
