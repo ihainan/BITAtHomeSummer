@@ -29,11 +29,11 @@ public:
     {
         memset(body_status,0,sizeof(body_status));
         //init _pub
-		cout<<"initializing publisher ..."<<endl;
+		ROS_INFO("initializing publisher ...");
         _pub_skeleton = _it.advertise("KinectVision/skeleton_image", 1);
         _pub_image = _it.advertise("KinectVision/image", 1);
         //init _sub
-		cout<<"initializing subscriber ..."<<endl;
+		ROS_INFO("initializing subscriber ...");
         string NodeTopic = _nh.resolveName("camera/rgb/image_color");
         _sub = _it.subscribeCamera(NodeTopic, 1, &KinectVision::img_CB, this);
     }
@@ -168,7 +168,7 @@ public:
 int main( int argc, char ** argv )
 {
     ros::init(argc, argv, "KinectVision");
-    cout<<"starting node /KinectVision..."<<endl;
+    ROS_INFO("starting node /KinectVision...");
     KinectVision kv;
     ros::spin();
     return 0;
