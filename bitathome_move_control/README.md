@@ -11,7 +11,7 @@
 ## 节点
 - hc_joy_control.py: 用于手柄对机器人运动的控制
     - 使用服务
-          - /hc_cmd_interface/vector_speed：此服务以向量和转速控制机器运动（数据类型：VectorSpeed）
+          - /hc_cmd_interface/vector_speed（bitathome_hardware_control/VectorSpeed）：此服务以向量和转速控制机器运动
 - hc_keyboard_control.py:用于键盘对机器人运动的控制
     - 使用服务
-          - /hc_cmd_interface/motor_speed：此服务以三个转速控制机器运动（数据类型：MotorSpeed）
+          - /hc_cmd_interface/motor_speed（bitathome_hardware_control/ MotorSpeed）：此服务以三个转速控制机器运动
