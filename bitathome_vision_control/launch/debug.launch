@@ -1,0 +1,4 @@
+<launch>
+    <include file="$(find openni_launch)/launch/openni.launch"/>
+    <include file="$(find bitathome_vision_control)/launch/vision.launch"/>
+</launch>
