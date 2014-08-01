@@ -6,6 +6,8 @@
 #include <tf/transform_listener.h>
 #include <boost/foreach.hpp>
 #include <sensor_msgs/image_encodings.h>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
 #include <vector>
 #include <iostream>
 
@@ -21,6 +23,7 @@ class KinectVision
     image_geometry::PinholeCameraModel _CamMod;
     tf::TransformListener _listener;
     int body_status[10];
+    static const int PointRadio = 7;
 
 public:
     // __init__()
@@ -28,14 +31,22 @@ public:
         : _it(_nh)
     {
         memset(body_status,0,sizeof(body_status));
-        //init _pub
-		ROS_INFO("initializing publisher ...");
-        _pub_skeleton = _it.advertise("KinectVision/skeleton_image", 1);
-        _pub_image = _it.advertise("KinectVision/image", 1);
-        //init _sub
-		ROS_INFO("initializing subscriber ...");
-        string NodeTopic = _nh.resolveName("camera/rgb/image_color");
-        _sub = _it.subscribeCamera(NodeTopic, 1, &KinectVision::img_CB, this);
+        bool flag = true;
+        while ( flag ) try
+        {
+            //init _pub
+            ROS_INFO("initializing publisher ...");
+            _pub_skeleton = _it.advertise("KinectVision/skeleton_image", 1);
+            _pub_image = _it.advertise("KinectVision/image", 1);
+            //init _sub
+            ROS_INFO("initializing subscriber ...");
+            string NodeTopic = _nh.resolveName("camera/rgb/image_color");
+            _sub = _it.subscribeCamera(NodeTopic, 1, &KinectVision::img_CB, this);
+            flag = false;
+        }
+        catch ( exception & e )
+        {
+        }
     }
 
     // _sub::callback
@@ -111,24 +122,30 @@ public:
             cv::Point2d uv;
             uv = _CamMod.project3dToPixel(pt_cv);
 
-            static const int RADIUS = 10;
-            const CvScalar SkeletonColor[] =
-            {
-                CV_RGB(255,255,255),
-                CV_RGB(204,51,255),
-                CV_RGB(0,255,0),
-                CV_RGB(255,255,0),
-                CV_RGB(0,255,255),
-                CV_RGB(255,0,0),
-                CV_RGB(0,0,255),
-                CV_RGB(255,0,255),
-                CV_RGB(255,153,0),
-                CV_RGB(102,51,51),
-                CV_RGB(51,153,51)
-            };
-            cv::circle(image, uv, RADIUS, SkeletonColor[body_id], -1);
+            addPoint(image, uv, body_id);
         }
         _pub_skeleton.publish(input_bridge->toImageMsg());
+        cv::imshow("KinectVision", image);
+        cv::waitKey(3);
+
+    }
+    void addPoint( cv::Mat & image, cv::Point2d uv, int body_id )
+    {
+        const CvScalar SkeletonColor[] =
+        {
+            CV_RGB(255,255,255),
+            CV_RGB(204,51,255),
+            CV_RGB(0,255,0),
+            CV_RGB(255,255,0),
+            CV_RGB(0,255,255),
+            CV_RGB(255,0,0),
+            CV_RGB(0,0,255),
+            CV_RGB(255,0,255),
+            CV_RGB(255,153,0),
+            CV_RGB(102,51,51),
+            CV_RGB(51,153,51)
+        };
+        cv::circle(image, uv, PointRadio, SkeletonColor[body_id], -1);
     }
     // check frame is useless or not
     bool useless( string _buf, int & id )
