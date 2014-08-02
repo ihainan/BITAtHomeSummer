@@ -23,10 +23,10 @@ def keyboard_loop():
 
     print "使用WASD控制行走，使用JK控制旋转，按E停止运动，按Q退出控制"
 
+    fd = sys.stdin.fileno()
+    old_settings = termios.tcgetattr(fd)
+
     while not rospy.is_shutdown():
-        fd = sys.stdin.fileno()
-        old_settings = termios.tcgetattr(fd)
-        old_settings[3] = old_settings[3] & ~termios.ICANON & ~termios.ECHO
         try:
             tty.setraw(fd)
             ch = sys.stdin.read(1)
