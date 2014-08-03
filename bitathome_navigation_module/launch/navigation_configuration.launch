@@ -1,0 +1,5 @@
+<launch>
+  <node pkg = "bitathome_navigation_module" name = "tf_broadcaster" type = "tf_broadcaster" />
+  <!-- <node pkg = "bitathome_navigation_module" name = "my_tf_broadcaster" type = "my_tf_broadcaster.py" /> -->
+  <node pkg = "lms1xx" name = "LMS1xx_node" type ="LMS1xx_node" />
+</launch>
