@@ -102,9 +102,9 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 # include_directories(include)
-include_directories(
-  ${catkin_INCLUDE_DIRS}
-)
+#include_directories(
+#  ${catkin_INCLUDE_DIRS}
+#)
 
 ## Declare a cpp library
 # add_library(bitathome_hardware_control
@@ -112,16 +112,16 @@ include_directories(
 # )
 
 ## Declare a cpp executable
-add_executable(KinectVision src/KinectVision.cpp)
+#add_executable(KinectVision src/KinectVision.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(bitathome_hardware_control_node bitathome_hardware_control_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(KinectVision
-  ${catkin_LIBRARIES}
-)
+#target_link_libraries(KinectVision
+#  ${catkin_LIBRARIES}
+#)
 
 #############
 ## Install ##
