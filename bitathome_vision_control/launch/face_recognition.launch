@@ -1,0 +1,5 @@
+<launch>
+	<include file="$(find openni_launch)/launch/openni.launch"/>
+	<node name="face_recognition" pkg="face_recognition" type="Fserver" output="screen"/>
+	<node name="face_recognition_client" pkg="face_recognition" type="Fclient" output="screen"/>
+</launch>
