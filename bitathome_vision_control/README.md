@@ -21,3 +21,8 @@ This package is used to control vision devices of bit@home robot.
     - launch :
         openni_launch/openni.launch
         bitathome_vision
+- face_recognition.launch :
+    - launch :
+        openni_launch/openni.launch
+        face_recognition/Fserver
+        face_recognition/Fclient
