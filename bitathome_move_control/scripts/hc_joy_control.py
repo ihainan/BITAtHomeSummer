@@ -28,27 +28,27 @@ def joy_loop():
         elif joyData.axes[1] == 1:
             resp = ser(temp_speed, 0, 0)
             if resp.result == 1:
-                print "前进 ：成功"
+                rospy.loginfo( "前进 ：成功")
             else:
-                print"前进 ：失败"
+                rospy.loginfo( "前进 ：失败")
         elif joyData.axes[1] == -1:
             resp = ser(-temp_speed, 0, 0)
             if resp.result == 1:
-                print "后退 ：成功"
+                rospy.loginfo( "后退 ：成功")
             else:
-                print"后退 ：失败"
+                rospy.loginfo( "后退 ：失败")
         elif joyData.axes[0] == 1:
             resp = ser(0, 0, -300)
             if resp.result == 1:
-                print "左转 ：成功"
+                rospy.loginfo(  "左转 ：成功")
             else:
-                print"左转 ：失败"
+                rospy.loginfo( "左转 ：失败")
         elif joyData.axes[0] == -1:
             resp = ser(0, 0, 300)
             if resp.result == 1:
-                print "右转 ：成功"
+                rospy.loginfo(  "右转 ：成功")
             else:
-                print"右转 ：失败"
+                rospy.loginfo( "右转 ：失败")
         rate.sleep()
 
 if __name__ == "__main__":

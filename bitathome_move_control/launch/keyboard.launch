@@ -1,0 +1,7 @@
+<launch>
+
+	<node pkg="bitathome_hardware_control" name="hc_cmd_interface" type="hc_cmd_interface.py"  />
+
+	<node pkg="bitathome_move_control" name="hc_keyboard_control" type="hc_keyboard_control.py" output="screen" />
+
+</launch>
