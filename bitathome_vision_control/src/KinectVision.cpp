@@ -9,7 +9,11 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <vector>
+#include <map>
+#include <string>
 #include <iostream>
+
+#include "gesture.hpp"
 
 using namespace std;
 
@@ -73,16 +77,19 @@ public:
 
         vector<string> frame_ids;
         _listener.getFrameStrings(frame_ids);
+        GestureTest::points points;
+        bool flagHasSkeleton = false;
         BOOST_FOREACH( const string & frame_id, frame_ids )
         {
             tf::StampedTransform _transform;
             int body_id = -1;
+            string body_name;
 
-            if ( useless(frame_id, body_id) )
+            if ( useless(frame_id, body_id, body_name) )
             {
                 continue;
             }
-
+            flagHasSkeleton = true;
             try
             {
                 _listener.lookupTransform("openni_depth_frame", frame_id, ros::Time(0), _transform);
@@ -123,10 +130,15 @@ public:
             uv = _CamMod.project3dToPixel(pt_cv);
 
             addPoint(image, uv, body_id);
+
+            points.body_id = body_id;
+            points.p2d[body_name] = uv;
+            points.p3d[body_name] = pt_cv;
         }
         _pub_skeleton.publish(input_bridge->toImageMsg());
         cv::imshow("KinectVision", image);
         cv::waitKey(3);
+        if ( flagHasSkeleton ) GestureTest::GetGestureStatus(points);
 
     }
     void addPoint( cv::Mat & image, cv::Point2d uv, int body_id )
@@ -148,35 +160,19 @@ public:
         cv::circle(image, uv, PointRadio, SkeletonColor[body_id], -1);
     }
     // check frame is useless or not
-    bool useless( string _buf, int & id )
+    bool useless( string _buf, int & id, string & name )
     {
-        const string body_FrameID[] =
-        {
-            "head",
-            "neck",
-            "torso",
-            "left_shoulder",
-            "left_elbow",
-            "left_hand",
-            "right_shoulder",
-            "right_elbow",
-            "right_hand",
-            "left_hip",
-            "left_knee",
-            "left_foot",
-            "right_hip",
-            "right_knee",
-            "right_foot"
-        };
         for ( int i = 0; i < 15; i ++ )
         {
-            if ( _buf.substr(0,_buf.size()-2) == body_FrameID[i] )
+            if ( _buf.substr(0,_buf.size()-2) == GestureTest::body_FrameID[i] )
             {
                 id = _buf[_buf.size()-1] - '0';
+                name = GestureTest::body_FrameID[i];
                 return false;
             }
         }
         id = -1;
+        name = "";
         return true;
     }
 };
