@@ -1,4 +1,4 @@
 <launch>
     <node name="openni_tracker" pkg="openni_tracker" type="openni_tracker" output="screen" />
-    <node name="KinectVision" pkg="bitathome_hardware_control" type="KinectVision" output="screen" />
+    <node name="KinectVision" pkg="bitathome_vision_control" type="KinectVision" output="screen" />
 </launch>
