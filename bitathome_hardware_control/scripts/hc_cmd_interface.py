@@ -18,7 +18,7 @@ import math
 
 node_name = "hc_cmd_interface"  # 节点名称
 serial_name = "/dev/ttyUSB0"  # 串口名称
-max_wheel_speed = 600  # 最大电机转速
+max_wheel_speed = 2000  # 最大电机转速
 request_code_disk_buf = [0x55, 0xaa, 0x38, 0x02, 0x08, 0x60]  # 码盘数据返回申请
 
 
